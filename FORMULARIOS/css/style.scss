@@ -5,10 +5,8 @@ $cor_input_color: $cor_azul_escuro;
 $cor_branco: white;
 $cor_amarelo: #ffff63;
 $cor_laranja: #dd7711;
-$cor_amarelo_claro: #ffff85;
 $cor_laranja_claro: #f39231;
 $cor_cinza_escuro: #323232;
-
 $base_text_size: 1.2rem;
 $button_border_hover: 5px;
 
@@ -35,21 +33,48 @@ $button_border_hover: 5px;
 
 @keyframes button_focus{
     from {
-        border: 0px solid $cor_laranja_claro;
+        transform: translateY(0);
     }
 
     to {
-        border: $button_border_hover solid $cor_laranja_claro;
+        transform: translateY(-.5rem);
     }
 }
 
 @keyframes button_focus_reverse{
     from {
-        border: 5px solid $cor_laranja_claro;
+        transform: translateY(-.5rem);
     }
     
     to {
-        border: 0px solid $cor_laranja_claro;
+        transform: translateY(0);
+    }
+}
+
+@keyframes carrossel{
+    from{
+        transform: scale(100%);
+        height: 60%;
+        z-index: 20;
+        
+    }
+    to{
+        transform: scale(109%);
+        height: 70%;
+        z-index: 20;
+    }
+}
+
+@keyframes carrossel_reverse{
+    from{
+        transform: scale(109%);
+        height: 70%;
+        z-index: 20;
+    }
+    to{
+        transform: scale(100%);
+        height: 60%;
+        z-index: 20;
     }
 }
 
@@ -58,7 +83,8 @@ $button_border_hover: 5px;
     padding: 0;
 }
 body{
-    width: 100%;
+    width: 100vw;
+    height: fit-content;
     font-family: Poppins;
     background: $cor_branco;
     display: grid;
@@ -66,7 +92,6 @@ body{
     grid-template-rows: auto auto;
 }
 main{
-
     .main_img{
         width: inherit;
         height: 100%; //alterar para 100%
@@ -80,6 +105,12 @@ main{
         color: $cor_azul_escuro;
         font-size: $base_text_size;
         text-align: center;
+
+        .content{
+            .carrossel{
+                display: none;
+            }
+        }
     }
 }
 footer{
@@ -96,6 +127,13 @@ footer{
 form{
     input{
         text-indent: 2rem;
+        cursor: pointer;
+    }
+    input:hover, select:hover, .caixa_selecao:hover{
+        background: rgba(255, 255, 255, 0.876);
+    }
+    input:focus, select:focus, .caixa_selecao:focus{
+        outline: 2px solid $cor_laranja;
     }
     input, select{
         border-radius: $base_text_size * .5;
@@ -119,11 +157,12 @@ form{
         animation-duration: .3s;
         border: 0px solid $cor_laranja_claro;
         cursor: pointer;
+        transform: translateY(0);
     }
     button:hover{
-        border: $button_border_hover solid $cor_laranja_claro;
         animation-name: button_focus;
         animation-duration: .3s;
+        transform: translateY(-.5rem);
     }
 
     
@@ -143,6 +182,7 @@ footer{
         display: flex;
         gap: 1rem;
         flex-direction: column;
+
         .item{
             display: grid;
             grid-template-columns: 6vw 3fr;
@@ -160,7 +200,16 @@ footer{
     }
 }
 
-@media (max-width: 700px){
+.triangulos{
+    display: block;
+    width: 300px;
+    height: 300px;
+    background-image: url("/img/Triangulos.png");
+    position: absolute;
+    left: 0;
+}
+
+@media (max-width: 800px){
     main{
         .header{
             width: 100%;
@@ -183,6 +232,14 @@ footer{
         }
         .aviso{
             padding: 1rem;
+            .content{
+                color: $cor_azul_escuro;
+                background: rgba(255, 255, 255, 0.319);
+            
+                .title_carrossel{
+                    display: none;
+                }
+            }
 
             .header{
                 display: none
@@ -228,19 +285,23 @@ footer{
 
 }
 
-@media (min-width: 700px){
+@media (min-width: 800px){
+    body{
+        overflow-x: hidden;
+    }
     main{
         .main_img{
-            display: grid;
             height: 100vh;
             min-height: 600px;
             top: 0;
+            display: grid;
             grid-template-columns: 5fr 2fr;
             grid-template-rows: 15% 70% 15%;
             grid-template-areas: "aviso header" "aviso form" "aviso .";
-            background-image: none;
-            background: $cor_azul_medio;
             
+            background: $cor_azul_medio;
+            background-image: none;
+
             .header{
                 display: none;
             }
@@ -248,8 +309,9 @@ footer{
             .aviso{
                 background-image: url("/img/Empreendimento.jpg");
                 background-size: cover;
-                background-position: center;
                 background-repeat: no-repeat;
+    
+
                 
                 grid-area: aviso;
                 display: grid;
@@ -264,19 +326,70 @@ footer{
                 
                 .content{
                     @include container();
-                    align-items: center;
-                    justify-content: center;
-                    font-size: $base_text_size * 1.3;
+                    align-items: flex-start;
+                    justify-content: start;
                     color: $cor_azul_escuro;
+                    text-shadow: 10px 0 150px $cor_cinza_escuro;
                     grid-area: content;
-                    background: rgba(255, 255, 255, 0.729);
-                    min-height: 60%;
-                    padding: 3rem 4rem;
+                    height: 100%;
                     margin: 0 3rem;
                     gap: 2rem;
 
+                    h1{
+                        font-size: $base_text_size * 1.7;
+                        background-color: $cor_laranja;
+                        padding: .3rem 1.4rem;
+                        border-radius: $base_text_size * .3 ;
+                    }
+                    
                     p{
                         font-size: $base_text_size;
+                        background-color: $cor_branco;
+                        padding: .2rem 1rem;
+                        border-radius: $base_text_size * .3 ;
+                    }
+
+                    .carrossel{
+                        display: block;
+                        width: 80%;
+                        height: 40vh;
+                        display: flex;
+                        align-items: center;
+                        flex-direction: row;
+                        gap: 1rem;
+
+                        .carrossel_img_1, .carrossel_img_2, .carrossel_img_3{
+                            border-radius: $base_text_size * .3;
+                            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.759);
+                            display: flex;
+                            background-size: cover;
+                            background-position: center;
+                            border-bottom: 4px solid white;
+                            animation-name: carrossel_reverse;
+                            transform: scale(100%);
+                            animation-duration: .5s;
+                            width: 30%;
+                            height: 60%;
+                            z-index: 0;
+                        }
+                        .carrossel_img_1{
+                            background-image: url("/img/cozinha.jpg");
+                        }
+                        .carrossel_img_2{
+                            background-image: url("/img/cozinha1.jpg");
+                        }
+                        .carrossel_img_3{
+                            background-image: url("/img/sacada.jpg");
+                        }
+                        
+                        div:hover{
+                            animation-name: carrossel;
+                            animation-duration: .5s;
+                            transform: scale(109%);
+                            height: 70%;
+                            z-index: 20;
+                        }
+
                     }
                 }
                 .desktop_title{
@@ -299,15 +412,6 @@ footer{
                 width: calc(100% - 8rem);
                 min-height: 60px;
                 background-size: cover;
-
-            }
-            .logo_bg_branco{
-                background-image: url("/img/logoHorizontal_forBgWhite.png");
-                background-position: center;
-                align-self: center;
-                background-size: cover;
-                width: 100%;
-                min-height: 19vh;
 
             }
             .logo_bg_branco, .logo_bg_azul{
@@ -335,7 +439,7 @@ footer{
         width: 30vw;
         height: 100vh;
         grid-area: form;
-        gap: .5rem;
+        gap: .9rem;
         margin: 0 4rem 0 4rem;
 
         button[type=submit]{
@@ -383,7 +487,7 @@ footer{
     footer{
         display: flex;
         background: $cor_azul_escuro;
-        padding: 3vh 0 4vh 0;
+        padding: 3vh 0 6vh 0;
 
         z-index: 10;
         box-shadow: -10px 0 80px black;

@@ -8,34 +8,82 @@
 }
 @-webkit-keyframes button_focus {
   from {
-    border: 0px solid #f39231;
+    transform: translateY(0);
   }
   to {
-    border: 5px solid #f39231;
+    transform: translateY(-0.5rem);
   }
 }
 @keyframes button_focus {
   from {
-    border: 0px solid #f39231;
+    transform: translateY(0);
   }
   to {
-    border: 5px solid #f39231;
+    transform: translateY(-0.5rem);
   }
 }
 @-webkit-keyframes button_focus_reverse {
   from {
-    border: 5px solid #f39231;
+    transform: translateY(-0.5rem);
   }
   to {
-    border: 0px solid #f39231;
+    transform: translateY(0);
   }
 }
 @keyframes button_focus_reverse {
   from {
-    border: 5px solid #f39231;
+    transform: translateY(-0.5rem);
   }
   to {
-    border: 0px solid #f39231;
+    transform: translateY(0);
+  }
+}
+@-webkit-keyframes carrossel {
+  from {
+    transform: scale(100%);
+    height: 60%;
+    z-index: 20;
+  }
+  to {
+    transform: scale(109%);
+    height: 70%;
+    z-index: 20;
+  }
+}
+@keyframes carrossel {
+  from {
+    transform: scale(100%);
+    height: 60%;
+    z-index: 20;
+  }
+  to {
+    transform: scale(109%);
+    height: 70%;
+    z-index: 20;
+  }
+}
+@-webkit-keyframes carrossel_reverse {
+  from {
+    transform: scale(109%);
+    height: 70%;
+    z-index: 20;
+  }
+  to {
+    transform: scale(100%);
+    height: 60%;
+    z-index: 20;
+  }
+}
+@keyframes carrossel_reverse {
+  from {
+    transform: scale(109%);
+    height: 70%;
+    z-index: 20;
+  }
+  to {
+    transform: scale(100%);
+    height: 60%;
+    z-index: 20;
   }
 }
 * {
@@ -44,7 +92,10 @@
 }
 
 body {
-  width: 100%;
+  width: 100vw;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   font-family: Poppins;
   background: white;
   display: grid;
@@ -66,6 +117,9 @@ main .aviso {
   font-size: 1.2rem;
   text-align: center;
 }
+main .aviso .content .carrossel {
+  display: none;
+}
 
 footer {
   width: 100%;
@@ -79,6 +133,13 @@ footer {
 
 form input {
   text-indent: 2rem;
+  cursor: pointer;
+}
+form input:hover, form select:hover, form .caixa_selecao:hover {
+  background: rgba(255, 255, 255, 0.876);
+}
+form input:focus, form select:focus, form .caixa_selecao:focus {
+  outline: 2px solid #dd7711;
 }
 form input, form select {
   border-radius: 0.6rem;
@@ -104,13 +165,14 @@ form button[type=submit] {
           animation-duration: 0.3s;
   border: 0px solid #f39231;
   cursor: pointer;
+  transform: translateY(0);
 }
 form button:hover {
-  border: 5px solid #f39231;
   -webkit-animation-name: button_focus;
           animation-name: button_focus;
   -webkit-animation-duration: 0.3s;
           animation-duration: 0.3s;
+  transform: translateY(-0.5rem);
 }
 
 footer .img_logo {
@@ -139,7 +201,16 @@ footer .contato .item img {
   width: 6vw;
 }
 
-@media (max-width: 700px) {
+.triangulos {
+  display: block;
+  width: 300px;
+  height: 300px;
+  background-image: url("/img/Triangulos.png");
+  position: absolute;
+  left: 0;
+}
+
+@media (max-width: 800px) {
   main .header {
     width: 100%;
     height: 25vw;
@@ -161,6 +232,13 @@ footer .contato .item img {
   }
   main .aviso {
     padding: 1rem;
+  }
+  main .aviso .content {
+    color: #00244f;
+    background: rgba(255, 255, 255, 0.319);
+  }
+  main .aviso .content .title_carrossel {
+    display: none;
   }
   main .aviso .header {
     display: none;
@@ -207,17 +285,20 @@ footer .contato .item img {
     margin-bottom: 1rem;
   }
 }
-@media (min-width: 700px) {
+@media (min-width: 800px) {
+  body {
+    overflow-x: hidden;
+  }
   main .main_img {
-    display: grid;
     height: 100vh;
     min-height: 600px;
     top: 0;
+    display: grid;
     grid-template-columns: 5fr 2fr;
     grid-template-rows: 15% 70% 15%;
     grid-template-areas: "aviso header" "aviso form" "aviso .";
-    background-image: none;
     background: #00244f;
+    background-image: none;
   }
   main .main_img .header {
     display: none;
@@ -225,7 +306,6 @@ footer .contato .item img {
   main .main_img .aviso {
     background-image: url("/img/Empreendimento.jpg");
     background-size: cover;
-    background-position: center;
     background-repeat: no-repeat;
     grid-area: aviso;
     display: grid;
@@ -242,19 +322,69 @@ footer .contato .item img {
     flex-direction: column;
     padding: 1rem;
     gap: 1rem;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.56rem;
+    align-items: flex-start;
+    justify-content: start;
     color: #00244f;
+    text-shadow: 10px 0 150px #323232;
     grid-area: content;
-    background: rgba(255, 255, 255, 0.729);
-    min-height: 60%;
-    padding: 3rem 4rem;
+    height: 100%;
     margin: 0 3rem;
     gap: 2rem;
   }
+  main .main_img .aviso .content h1 {
+    font-size: 2.04rem;
+    background-color: #dd7711;
+    padding: 0.3rem 1.4rem;
+    border-radius: 0.36rem;
+  }
   main .main_img .aviso .content p {
     font-size: 1.2rem;
+    background-color: white;
+    padding: 0.2rem 1rem;
+    border-radius: 0.36rem;
+  }
+  main .main_img .aviso .content .carrossel {
+    display: block;
+    width: 80%;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 1rem;
+  }
+  main .main_img .aviso .content .carrossel .carrossel_img_1, main .main_img .aviso .content .carrossel .carrossel_img_2, main .main_img .aviso .content .carrossel .carrossel_img_3 {
+    border-radius: 0.36rem;
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.759);
+    display: flex;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 4px solid white;
+    -webkit-animation-name: carrossel_reverse;
+            animation-name: carrossel_reverse;
+    transform: scale(100%);
+    -webkit-animation-duration: 0.5s;
+            animation-duration: 0.5s;
+    width: 30%;
+    height: 60%;
+    z-index: 0;
+  }
+  main .main_img .aviso .content .carrossel .carrossel_img_1 {
+    background-image: url("/img/cozinha.jpg");
+  }
+  main .main_img .aviso .content .carrossel .carrossel_img_2 {
+    background-image: url("/img/cozinha1.jpg");
+  }
+  main .main_img .aviso .content .carrossel .carrossel_img_3 {
+    background-image: url("/img/sacada.jpg");
+  }
+  main .main_img .aviso .content .carrossel div:hover {
+    -webkit-animation-name: carrossel;
+            animation-name: carrossel;
+    -webkit-animation-duration: 0.5s;
+            animation-duration: 0.5s;
+    transform: scale(109%);
+    height: 70%;
+    z-index: 20;
   }
   main .main_img .aviso .desktop_title {
     background-image: url("/img/Chamber of Secrets.svg");
@@ -274,14 +404,6 @@ footer .contato .item img {
     width: calc(100% - 8rem);
     min-height: 60px;
     background-size: cover;
-  }
-  main .main_img .logo_bg_branco {
-    background-image: url("/img/logoHorizontal_forBgWhite.png");
-    background-position: center;
-    align-self: center;
-    background-size: cover;
-    width: 100%;
-    min-height: 19vh;
   }
   main .main_img .logo_bg_branco, main .main_img .logo_bg_azul {
     height: 100%;
@@ -303,7 +425,7 @@ footer .contato .item img {
     width: 30vw;
     height: 100vh;
     grid-area: form;
-    gap: 0.5rem;
+    gap: 0.9rem;
     margin: 0 4rem 0 4rem;
   }
   form button[type=submit] {
@@ -352,7 +474,7 @@ footer .contato .item img {
   footer {
     display: flex;
     background: #00244f;
-    padding: 3vh 0 4vh 0;
+    padding: 3vh 0 6vh 0;
     z-index: 10;
     box-shadow: -10px 0 80px black;
   }
