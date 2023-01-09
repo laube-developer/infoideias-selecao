@@ -1,0 +1,377 @@
+@font-face {
+  font-family: Roboto;
+  src: url("/fonts//Roboto/Roboto-Medium.ttf");
+}
+@font-face {
+  font-family: Poppins;
+  src: url("/fonts/Poppins/Poppins-Medium.ttf");
+}
+@-webkit-keyframes button_focus {
+  from {
+    border: 0px solid #f39231;
+  }
+  to {
+    border: 5px solid #f39231;
+  }
+}
+@keyframes button_focus {
+  from {
+    border: 0px solid #f39231;
+  }
+  to {
+    border: 5px solid #f39231;
+  }
+}
+@-webkit-keyframes button_focus_reverse {
+  from {
+    border: 5px solid #f39231;
+  }
+  to {
+    border: 0px solid #f39231;
+  }
+}
+@keyframes button_focus_reverse {
+  from {
+    border: 5px solid #f39231;
+  }
+  to {
+    border: 0px solid #f39231;
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  font-family: Poppins;
+  background: white;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto;
+}
+
+main .main_img {
+  width: inherit;
+  height: 100%;
+  background-image: url("/img/Empreendimento.jpg");
+  background-position: center top;
+  background-size: cover;
+  color: white;
+}
+main .aviso {
+  background: white;
+  color: #00244f;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+footer {
+  width: 100%;
+  background: #00244f;
+  padding: 2rem 0 8rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+form input {
+  text-indent: 2rem;
+}
+form input, form select {
+  border-radius: 0.6rem;
+  width: 100%;
+  font-family: Poppins;
+  color: #323232;
+  border: none;
+  color: #323232;
+}
+form button[type=submit] {
+  background-image: linear-gradient(45deg, #ffff63, #dd7711);
+  box-shadow: 2px 2px 30px #dd7711;
+  color: white;
+  font-weight: 600;
+  font-size: 1.2rem;
+  bottom: 0;
+  border-radius: 0.6rem;
+  font-family: Poppins;
+  z-index: 3;
+  -webkit-animation-name: button_focus_reverse;
+          animation-name: button_focus_reverse;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+  border: 0px solid #f39231;
+  cursor: pointer;
+}
+form button:hover {
+  border: 5px solid #f39231;
+  -webkit-animation-name: button_focus;
+          animation-name: button_focus;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+}
+
+footer .img_logo {
+  width: 50vw;
+  height: 10vw;
+  background-image: url("/img/logoHorizontal_forBgBlue.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+footer .contato {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+footer .contato .item {
+  display: grid;
+  grid-template-columns: 6vw 3fr;
+  color: white;
+  gap: 2rem;
+}
+footer .contato .item p {
+  display: flex;
+}
+footer .contato .item img {
+  width: 6vw;
+}
+
+@media (max-width: 700px) {
+  main .header {
+    width: 100%;
+    height: 25vw;
+    background-image: url("/img/Titulo Formulario.png");
+    background-position: center top;
+    background-size: cover;
+  }
+  main .main_img {
+    z-index: 10;
+  }
+  main .main_img::after {
+    content: "";
+    display: block;
+    width: inherit;
+    height: 4px;
+    position: relative;
+    top: 4px;
+    background-image: linear-gradient(45deg, #ffff63, #dd7711);
+  }
+  main .aviso {
+    padding: 1rem;
+  }
+  main .aviso .header {
+    display: none;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  form input {
+    height: 15vw;
+    font-size: 0.96rem;
+  }
+  form .caixa_selecao {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    border-radius: 0.36rem;
+    background: white;
+    color: #00244f;
+  }
+  form .list_radio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  form .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  form input[type=radio] {
+    width: 10vw;
+    display: flex;
+  }
+  form button[type=submit] {
+    height: 15vw;
+    position: fixed;
+    width: calc(100% - 2rem);
+    margin-bottom: 1rem;
+  }
+}
+@media (min-width: 700px) {
+  main .main_img {
+    display: grid;
+    height: 100vh;
+    min-height: 600px;
+    top: 0;
+    grid-template-columns: 5fr 2fr;
+    grid-template-rows: 15% 70% 15%;
+    grid-template-areas: "aviso header" "aviso form" "aviso .";
+    background-image: none;
+    background: #00244f;
+  }
+  main .main_img .header {
+    display: none;
+  }
+  main .main_img .aviso {
+    background-image: url("/img/Empreendimento.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    grid-area: aviso;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 6% 11% 65% 15%;
+    grid-template-areas: "." "desktop_title" "content" ".";
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  main .main_img .aviso .content {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.56rem;
+    color: #00244f;
+    grid-area: content;
+    background: rgba(255, 255, 255, 0.729);
+    min-height: 60%;
+    padding: 3rem 4rem;
+    margin: 0 3rem;
+    gap: 2rem;
+  }
+  main .main_img .aviso .content p {
+    font-size: 1.2rem;
+  }
+  main .main_img .aviso .desktop_title {
+    background-image: url("/img/Chamber of Secrets.svg");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: left;
+    grid-area: desktop_title;
+    align-self: center;
+    width: 70%;
+    height: 100%;
+    margin: 0 3rem;
+  }
+  main .main_img .logo_bg_azul {
+    background-image: url("/img/logoHorizontal_forBgBlue.png");
+    margin-left: 4rem;
+    background-position: left;
+    width: calc(100% - 8rem);
+    min-height: 60px;
+    background-size: cover;
+  }
+  main .main_img .logo_bg_branco {
+    background-image: url("/img/logoHorizontal_forBgWhite.png");
+    background-position: center;
+    align-self: center;
+    background-size: cover;
+    width: 100%;
+    min-height: 19vh;
+  }
+  main .main_img .logo_bg_branco, main .main_img .logo_bg_azul {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 30%;
+  }
+  main::after {
+    content: "";
+    display: block;
+    width: 100vw;
+    height: 4px;
+    position: relative;
+    background-image: linear-gradient(45deg, #ffff63, #dd7711);
+    z-index: 20;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+    height: 100vh;
+    grid-area: form;
+    gap: 0.5rem;
+    margin: 0 4rem 0 4rem;
+  }
+  form button[type=submit] {
+    height: 10vh;
+    width: 100%;
+    margin-bottom: 1rem;
+    min-height: 60px;
+    max-height: 50px;
+  }
+  form input, form select {
+    height: 5vh;
+    max-height: 50px;
+    border-radius: 0.3rem;
+    text-indent: 1rem;
+    min-height: 30px;
+    background: #ffffff;
+    color: #00244f;
+  }
+  form .caixa_selecao {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    border-radius: 0.36rem;
+    background: white;
+    color: #00244f;
+    font-size: 0.72rem;
+  }
+  form .list_radio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  form .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 2rem;
+  }
+  form input[type=radio] {
+    width: 2vw;
+    display: flex;
+  }
+  footer {
+    display: flex;
+    background: #00244f;
+    padding: 3vh 0 4vh 0;
+    z-index: 10;
+    box-shadow: -10px 0 80px black;
+  }
+  footer .img_logo {
+    background-size: 20%;
+    height: 10vh;
+    min-height: 63px;
+  }
+  footer .contato {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  footer .contato .item {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+  }
+  footer .contato .item img {
+    width: 3rem;
+  }
+}/*# sourceMappingURL=style.css.map */
