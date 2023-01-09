@@ -1,6 +1,8 @@
 # 🏙️ Chamber of Secrets
 <p>Processo Seletivo para Web Designer Júnior</p>
 
+[Clique aqui para ver o site finalizado](https://chamber-of-secrets-rafaellaube.000webhostapp.com/)
+
 ![Capa 1280x860](https://github.com/laube-developer/infoideias-selecao/blob/main/BANNER/Capa%201280x860.png?raw=true)
 
 ### O que é o projeto
